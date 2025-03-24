@@ -1,59 +1,99 @@
-# StarterClient
+    Version 3:
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.2.
+1   Create a new project.
+    Select Angular and ASP.NET Core.
+    I called it Starter.
+    Put in C:\Projects.
+    .Net 9, Configure for HTTPS, Enable OpenAPI, Do not use top-level statements, Use Controllers.
+    Close out of Visual Studio.
 
-## Development server
+2   Upgrade the Angular project to current.
+    Move the contents of starter.client to C:\Projects\OldStarter.
+    Copy the contents of C:\Projects\StarterSource\01-starter.client to
+    C:\Projects\Starter\starter.client.
 
-To start a local development server, run:
+3   Add the Microsoft SPA, https, and http ports to the Angular project.
+    Find the SPA, https, and http ports in the Starter.Server to copy to starter.client:
+    Source: Starter.Server\Properties\launchsettings.json has http port, L8, and https port, L18
+    Source: Starter.Server\Starter.Server.csproj has SPA port, L9
 
-```bash
-ng serve
-```
+    Target: starter.client\.vscode\launch.json:L8 and L15 make SPA port
+    Target: starter.client\angular.json, L76, SPA port
+    Target: starter.client\src\proxy.conf.js, L4, https port
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+4   Show a running app, essentially Hello World.
+    Launch VS and debug the project.  It should show the weather forecast.  Might need a refresh.
 
-## Code scaffolding
+5   Add the necessary Nuget packages.
+    Stop debugging.  Right click Starter.Server-> Dependencies-> Manage Nuget Packages.
+    Click Browse and install the following:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+    Microsoft.EntityFrameworkCore.Design
+    Npgsql.EntityFrameworkCore.PostgreSQL
+    Microsoft.AspNetCore.Identity.EntityFrameworkCore
+    Scalar.AspNetCore
 
-```bash
-ng generate component component-name
-```
+6   Add the database context and entity.
+    Fire up Pgadmin.  Check the database and table.
+    Copy StarterSource\02-database\DbContext.bat to Starter.Server folder.
+    Add settings for appsettings.json connection string (copy from file)
+    Build project
+    Copy DbContext.bat to Starter.Server folder and run it from a command line
+    That creates Models, DbContext, and Entities folders with files.
+    Add database connection settings to Program.cs
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+7   Test API (OpenAPI -> Scalar not Swagger)
+    Add Scalar.AspNetCore in Nuget (as above)
+    Add to Program.cs
 
-```bash
-ng generate --help
-```
+    if( app.Environment.IsDevelopment()) {
+        app.MapOpenApi();
+        app.MapScalarApiReference();
+    }
 
-## Building
+    Can add to launchsettings.json
 
-To build the project run:
+    "launchBrowser": true, "launchUrl": "scalar/v1"
 
-```bash
-ng build
-```
+8   Add the Product API controller.
+    Right click Controllers folder, select New Controller
+    Select API-> API Controller with read/write actions
+    Name it ProductController.
+    Configure Product Controller GET, POST, PUT, DELETE (Retrieve, Create, Update, Delete)
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+9   Test the API CRUD endpoints:
+    View-> Other Windows-> Endpoints Explorer.
+    Right click and generate GET request so we can test it.
+    Also when you run the project, Scalar should now show.  Test CRUD there.
+    Also add "/api/**" to /src/proxy.conf.js next to "/weatherforecast",
 
-## Running unit tests
+10  Angular side of things.  Create a Product Service.
+    ng g s services\product
+    creates the product.service.ts file
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+    Add Get, GetById(), create, update, delete methods
 
-```bash
-ng test
-```
+11  Create a products feature component
+    ng g c features\products
+    creates the products.component.ts file
 
-## Running end-to-end tests
+    inject the product service, get the products, and display them.
 
-For end-to-end (e2e) testing, run:
+12  Add the route in app.routes.ts
+    export const routes: Routes = [
+        {path: '', redirectTo: 'products', pathMatch: 'full'},
+        {path: 'products', component: ProductsComponent}, // List of products
+        {path: 'newproduct', component: NewProductComponent}, // Add a new product
+        {path: 'editproduct/:id', component: EditProductComponent}, // Edit a product
+    ];
 
-```bash
-ng e2e
-```
+13  Create the EditProduct component:
+    ng g c features\products\editproduct
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+    This will create Editproduct instead of EditProduct, but an easy fix.
+    Editproduct -> EditProduct
 
-## Additional Resources
+14  Add Forms and validators
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+15  Add loading existing product to edit
+
