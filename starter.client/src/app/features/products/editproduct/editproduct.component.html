@@ -1,1 +1,18 @@
-<p>editproduct works!</p>
+@if( this.productid === 0 ) {
+  <h2>Add Product</h2>
+} @else {
+  <h2>Edit Product</h2>
+}
+<p>Create a new product:</p>
+<form (ngSubmit)="onSubmit()" [formGroup]="myForm">
+  <label for="name">Name: </label>
+  <input type="text" formControlName="name" placeholder="Product Name" required>
+  <br/>
+  <label for="description">Desc: </label>
+  <input type="text" formControlName="description" placeholder="Description">
+  <br/>
+  <label for="price">Price: </label>
+  <input type="number" formControlName="price" placeholder="Price" required>
+  <br/>
+  <button type="submit" [disabled]="!myForm.valid || submitted">Add Product</button>
+</form>

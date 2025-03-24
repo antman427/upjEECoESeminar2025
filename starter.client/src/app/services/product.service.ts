@@ -15,7 +15,8 @@ export class ProductService {
   }
 
   getById(id: number) : Product | undefined {
-    return this.products().find(product => product.id === id);
+    let p = this.products().find(product => product.id == id); 
+    return p;
   } 
 
   get() {
@@ -36,7 +37,7 @@ export class ProductService {
   }
 
   update(product: Product) {
-    this.http.put<Product>(`/api/product/${product.id}`, product)
+    this.http.put<Product>(`/api/product`, product)
     .subscribe({
       next: (product) => this.get(),
       error: (err) => console.error(err)
