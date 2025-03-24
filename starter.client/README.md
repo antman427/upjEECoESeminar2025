@@ -1,4 +1,36 @@
-    Version 3:
+    Version 4:
+
+Quick note if you download this repository as-is, check the Startup projects 
+in Visual Studio so that both projects start.  Right click the solution, 
+choose Configure Startup Projects, and ensure both client and server 
+projects are set to Start for the Action.
+
+    Software:
+
+    Visual Studio Community Edition
+    https://visualstudio.microsoft.com/vs/community/
+
+    Visual Studio Code
+    https://code.visualstudio.com/download
+
+    Node.js
+    https://nodejs.org/en/download
+
+    Git
+    https://git-scm.com/downloads
+
+    Angular CLI
+    https://angular.dev/tools/cli/setup-local
+    npm install -g @angular/cli
+
+    Npm-check-updates
+    npm i npm-check-updates
+
+    Entity Framework tools
+    https://learn.microsoft.com/en-us/ef/core/cli/dotnet
+    dotnet tool install --global dotnet-ef
+
+Steps:
 
 1   Create a new project.
     Select Angular and ASP.NET Core.
