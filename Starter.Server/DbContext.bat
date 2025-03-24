@@ -1,0 +1,1 @@
+dotnet ef dbcontext scaffold Name="DefaultConnection" Npgsql.EntityFrameworkCore.PostgreSQL -o Models/Entities --context-dir Models/AppDbContext -c AppDbContext -f --use-database-names --no-pluralize  -t Product

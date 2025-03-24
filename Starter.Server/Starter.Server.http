@@ -1,0 +1,10 @@
+@Starter.Server_HostAddress = https://localhost:7273
+
+GET {{Starter.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+GET {{Starter.Server_HostAddress}}/api/product
+
+###

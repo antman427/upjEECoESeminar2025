@@ -1,0 +1,6 @@
+@for( item of products(); track item.id ) {
+  <!-- <app-product [product]="item"></app-product> -->
+  <div>{{item.name}}</div>
+} @empty {
+    <div>No products found</div>
+}
