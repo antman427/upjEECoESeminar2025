@@ -15,7 +15,9 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
     this.productService.get();
   }
-
+  deleteProduct(id:number) {
+    this.productService.delete(id);
+  }
   //loadProducts() {
     // If productsSig doesn't load, I'll load here
   //}

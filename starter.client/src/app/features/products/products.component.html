@@ -1,6 +1,9 @@
 @for( item of products(); track item.id ) {
   <!-- <app-product [product]="item"></app-product> -->
-  <div>{{item.name}}</div>
+  <div><a href="/editproduct/{{item.id}}">{{item.name}}</a>
+  <button (click)="deleteProduct(item.id);">Delete</button></div>
 } @empty {
     <div>No products found</div>
 }
+<br/>
+<a href="/newproduct">Add Product</a>
