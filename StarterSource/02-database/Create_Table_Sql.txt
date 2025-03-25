@@ -1,0 +1,11 @@
+CREATE TABLE public."Product"
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 ),
+    name character varying(450),
+	description character varying(450),
+	price decimal,
+    PRIMARY KEY (id)
+);
+
+ALTER TABLE IF EXISTS public."Product"
+    OWNER to postgres;
